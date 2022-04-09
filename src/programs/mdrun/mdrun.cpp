@@ -73,6 +73,14 @@
 namespace gmx
 {
 
+#include <sys/time.h>
+double mysecond() {
+	struct timeval tp;
+	struct timezone tzp;
+	gettimeofday(&tp,&tzp);
+	return ((double) tp.tv_sec + (double) tp.tv_usec * 1.e-6 );
+}
+
 //! Implements C-style main function for mdrun
 int gmx_mdrun(int argc, char* argv[])
 {
@@ -266,8 +274,19 @@ int gmx_mdrun(int argc, char* argv[])
     builder.addLogFile(logFileGuard.get());
 
     auto runner = builder.build();
-
-    return runner.mdrunner();
+	
+	//Linha original
+    //return runner.mdrunner();
+    
+    
+	//Linha de codigo alterada
+	double t1, t2, elapsed;
+	t1 = mysecond()
+	auto aux = runner.mdrunner();
+	t2 = mysecond()
+	elapsed = t1-t2;
+	printf("[MO833]: runner.mdrunner() exec. time: %f", elapsed);
+	return aux;
 }
 
 } // namespace gmx
