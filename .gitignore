@@ -26,3 +26,5 @@ _build
 CMakeLists.txt.user
 /VersionInfo*.cmake
 Testing
+experiments/ativ-3-exp-1/data/#topol.top.2#
+experiments/ativ-3-exp-1/data/*.top
